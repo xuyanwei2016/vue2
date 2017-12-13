@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全局组件</title>
+</head>
+<body>
+<div id="app">
+    <my-handsome></my-handsome>
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<!--正常开发中我们不会使用全局组件，写一些新的包，或者一些全局的功能loading会使用全局组件-->
+
+<!--结构html 行为数据methods，data 样式 .vue文件-->
+<!--一般情况html使用短横线隔开命名法 js中使用驼峰命名法，上下一样即可-->
+<script>
+    //在vue中一个对象就是一个组件
+    /*全局组件是挂宅在Vue.component上*/
+    //1.使用组件的步骤，声明逐渐并且引入到当前页面，2.在组件的父级模块中调用这个组件
+    Vue.component('my-handsome',{
+        template:'<h1>{{msg}}</h1>',//只能有一个root element，而且不能放文本节点，实现原理就是用<h1>我很英俊</h1>替换页面中my-handsome标签
+        data(){//在组件中data是函数，目的是为了不受别人的干扰，因为组件是独立的
+            return {msg:'我很帅'}//这个对象可以用来定义数据
+        }
+
+    });
+    let vm=new Vue({
+        el:'#app',
+        data:{
+
+        },
+        //template:'<my-handsome></my-handsome>'//写在这里也可以
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

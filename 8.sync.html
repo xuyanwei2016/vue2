@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父亲拿儿子的数据</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm=new Vue({
+        el:'#app',
+        data:{msg:'美女'},
+        methods:{},
+        template:'<div>父亲{{msg}}<child :a.sync="msg"></child></div>',
+        components:{
+            child:{
+                props:['a'],
+                template:'<div>儿子{{a}}<button @click="change">嗲及改变</button></div>',
+                methods:{
+                    change(){
+                        this.$emit('update:a','丑女')
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

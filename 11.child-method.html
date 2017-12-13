@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父组件获取子组件中的方法</title>
+</head>
+<body>
+<div id="app">
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    //父亲调用子组件中的方法，子组件暴露一些方法，让父组件调用
+    //ref如果卸载dom 表示获取dom元素 如果写在组件上，表示是当前组件的实例
+let vm=new Vue({
+    el:'#app',
+    template:'<child ref="c"></child>',
+    mounted(){//当dom加载完成之后才能获取到元素
+        this.$refs.c.fn();
+
+    },
+    components:{
+      child:{
+          template:'<div>child</div>',
+          methods:{
+              fn(){alert('1')}
+          }
+      }
+    }
+})
+</script>
+</body>
+</html>

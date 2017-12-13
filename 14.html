@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <my></my>
+    <my1></my1>
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    //声明组件的名字，不能为已存在的标签 比如名字叫a p div
+    var data={msg:'hello2'};
+    //每个组件应该是没有关系的，都应该残生自己的数据
+    //在组件中使用的方法和默认的vm一样的 只是data不再是对象而是函数
+    //组件可以无限嵌套
+    var vm=new Vue({
+            el:'#app',
+            created(){
+                console.log('vm created');
+            },
+            components: {
+                my: {
+                    template: '<h1 @click="change">{{msg}}</h1>',
+                    data(){
+                        return data;
+                    },
+                    created(){
+                        console.log('my created');
+                    },
+                    methods: {
+                        change(){
+                            this.msg = 'world'
+                        }
+                    }
+                },
+                my1: {
+                    template: '<h1>{{msg}}</h1>',
+                    data(){
+                        return data;
+                    }
+                }
+            }
+        })
+        </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>互相传递（但是一般不会使用）</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let C={
+        template:'<div>{{val}}<button @click="change">点击变D</button></div>',
+        data(){
+            val:C
+        },
+        methods:{
+            change(){
+                this.$emit('changD',this.val)
+            }
+        }
+    };
+    let D={
+        template:'<div>{{val}}<button></button></div>',
+        data(){
+            val:D
+        }
+    }
+    var vm=new Vue({
+        el:'#app',
+        components:{
+            C,D
+        }
+    })
+</script>
+</body>
+</html>

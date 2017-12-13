@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>改变儿子 父亲也跟着变化</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm=new Vue({
+        el: '#app',
+        template:'<div>父亲{{msg}}<child :m.sync="msg" ></child></div>',
+        data: {
+            msg:100
+        },
+        components:{
+            child:{
+                props:['m'],
+                template:'<div>儿子{{m}}<button @click="more">变钱</button></div>',
+                methods:{
+                    more(){
+                        this.$emit('update:m',1000)
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

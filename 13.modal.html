@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插槽</title>
+</head>
+<body>
+<div id="app">
+    <button @click="isShow=true">弹</button>
+    <modal :show="isShow" @close="fn">
+        <h1>你切丁要删除吗？</h1>
+    </modal>
+
+</div>
+<template id="modal">
+<div v-show="show">
+    <div class="modal">
+        <slot name="title">ok成功</slot>
+        <span class="close" @click="close">&times;</span>
+    </div>
+    <div id="mask" @click="close"></div>
+</div>
+</template>
+<style>
+    .close{position: absolute;right: 10px;top:10px;cursor: pointer}
+    #mask{position: fixed;top:0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.3)}
+    .modal{width: 400px; height:250px;background: #fff;z-index: 100;position: absolute;left: 50%;top:50%;transform: translate3d(-50%,-50%,0)}
+</style>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let modal={
+        template:'#modal',
+        props:{
+            show:{type:Boolean}
+        },
+        methods:{
+            close(){
+                this.$emit('close',false)
+            }
+        }
+    };
+    let vm=new Vue({
+        el:'#app',
+        data:{isShow:false},
+        components:{
+            modal
+        },
+        methods:{
+            fn(result){
+                this.isShow=result
+            }
+        }
+
+    })
+</script>
+
+
+
+</body>
+</html>

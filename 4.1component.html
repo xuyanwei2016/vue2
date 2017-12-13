@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件套组件</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<template id="banana">
+    <div>香蕉</div>
+</template>
+<template id="fruit">
+    <div>水果<banana></banana></div>
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+//子级组件必须放在父级组件上面 否则会报错 报子集组件 is no defined
+    let banana={
+        template:'#banana'
+    };
+    let fruit={
+        template:'#fruit',
+        components:{
+            banana
+        }
+    };
+    let vm=new Vue({
+        el:'#app',
+        template:'<div>食物<fruit></fruit></div>',
+        components:{
+            fruit,
+        }
+    })
+</script>
+</body>
+</html>

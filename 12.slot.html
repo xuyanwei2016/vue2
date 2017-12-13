@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插槽</title>
+</head>
+<body>
+<div id="app">
+    <hello>
+        <ul slot="bottom">
+            <li>你好</li>
+            <li>你吃了没</li>
+        </ul>
+        <ul slot="top">
+            <li>你好top</li>
+            <li>你吃了没</li>
+        </ul>
+    </hello>
+</div>
+<template id="hello">
+<div>
+    你好
+    <!--slot是vue提供的内置插件，具名slot在写内容是第一预留出来slot插口，如果没有使用则使用默认内容，没有slot名字的都叫defaolt 会塞在name-=default 的组件内-->
+    <slot name="default">aaaaaaaa</slot>
+    <slot name="top">这是上</slot>
+    <slot name="bottom">这是下</slot>
+</div>
+</template>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm=new Vue({
+        el:'#app',
+        components:{
+            hello:{
+                template:'#hello'
+            }
+        }
+        
+    })
+</script>
+
+
+
+</body>
+</html>

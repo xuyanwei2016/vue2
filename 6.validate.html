@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>儿子拿到父亲的数据</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    //组件之间的通信 1.父与子 2.子与父亲 3.兄弟之间
+    let vm=new Vue({
+        el:'#app',
+        data:{
+            msg:100,
+            msg1:'美女'
+        },
+        template:'<child :m="msg" :o="msg1"></child>',
+        components:{
+            child:{
+                props:{//有验证的意思
+                    //m:[Number,Object,Boolean],//验证多种类型
+                    m:{
+                        //type:[Number,Object,Boolean],
+                        //default:'500',
+                        required:true //必填的意思
+                    },
+                    o:{
+                        validator(val){
+                            //val代表传递过来的内容，自定义验证器
+                            return val==='美女' //传进来的val值不是美女就会报错 是没有则是true
+                        }
+                    }
+                },
+                /*如果想在父级传给子级数据的基础上增加东西*/
+                computed:{
+                    b(){
+                        return '超级大'+this.o;//this当前的是当前组件中的实例
+                    }
+                },
+                template:'<div>child {{m}} {{b}}</div>'
+            }
+        }
+
+    })
+
+</script>
+</body>
+</html>
